@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class NQueens {
@@ -13,24 +14,26 @@ public class NQueens {
         this.n = n;
         this.queens = 0;
         this.board = new char[n][n];
-
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                board[i][j] = '.';
-            }
-        }
+        Arrays.stream(board).forEach(a -> Arrays.fill(a, '.'));
     }
 
     public List<List<String>> solve() {
         List<List<String>> solutions = new ArrayList<>();
+            int row;
 
-        while (queens < n) {
             for (int col = 0; col < n; col++) {
                 placed = false;
-                for (int row = findQueen(col); row < n; row++) {
+                for (row = findQueen(col); row < n; row++) {
                     if (attempt(row, col)) {
                         break;
                     }
+                }
+
+                if (queens == n) {
+                    solutions.add(copyBoard());
+                    this.board[row][col] = '.';
+                    placed = false;
+                    queens--;
                 }
 
                 while (!placed) {
@@ -43,18 +46,15 @@ public class NQueens {
                         this.board[previous][col] = '.';
                         queens--;
 
-                        for (int row = previous + 1; row < n; row++) {
+                            for (row = previous + 1; row < n; row++) {
                             if (attempt(row, col)) {
                                 break;
                             }
                         }
                     }
                 }
-                printBoard();
-                System.out.println();
             }
-        }
-        solutions.add(copyBoard());
+        System.out.println(solutions.size() + " solutions were found!");
         return solutions;
     }
 
