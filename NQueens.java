@@ -16,36 +16,36 @@ class NQueens {
         int row;
 
         for (int col = 0; col < n; col++) {
-             placed = false;
-             for (row = findQueen(col); row < n; row++) {
-                 if (attempt(row, col)) {
-                     break;
-                 }
-             }
+            placed = false;
+            for (row = findQueen(col); row < n; row++) {
+                if (attempt(row, col)) {
+                    break;
+                }
+            }
 
-             if (queens == n) {
-                 solutions.add(copyBoard());
-                 this.board[row][col] = '.';
-                 placed = false;
-                 queens--;
-             }
+            if (queens == n) {
+                solutions.add(copyBoard());
+                this.board[row][col] = '.';
+                placed = false;
+                queens--;
+            }
 
-             while (!placed) {
-                 if (col == 0) {
-                     break;
-                 } else {
-                     col--;
-                     int previous = findQueen(col);
-                     this.board[previous][col] = '.';
-                     queens--;
+            while (!placed) {
+                if (col == 0) {
+                    break;
+                } else {
+                    col--;
+                    int previous = findQueen(col);
+                    this.board[previous][col] = '.';
+                    queens--;
 
-                     for (row = previous + 1; row < n; row++) {
-                         if (attempt(row, col)) {
-                             break;
-                         }
-                     }
-                 }
-             }
+                    for (row = previous + 1; row < n; row++) {
+                        if (attempt(row, col)) {
+                            break;
+                        }
+                    }
+                }
+            }
         }
         return solutions;
     }
