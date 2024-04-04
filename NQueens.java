@@ -1,14 +1,12 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 class NQueens {
 
     int queens = 0;
     char[][] board;
     boolean placed = false;
     char queen = 'Q';
-
     public List<List<String>> solveNQueens(int n) {
         this.board = new char[n][n];
         Arrays.stream(board).forEach(a -> Arrays.fill(a, '.'));
@@ -49,7 +47,6 @@ class NQueens {
         }
         return solutions;
     }
-
     List<String> copyBoard() {
         List<String> solution = new ArrayList<>();
         for (char[] chars : board) {
@@ -57,7 +54,6 @@ class NQueens {
         }
         return solution;
     }
-
     boolean attempt(int row, int col) {
         if (isSafe(row, col)) {
             this.board[row][col] = queen;
@@ -66,7 +62,6 @@ class NQueens {
         }
         return placed;
     }
-
     int findQueen(int col){
         for (int row = 0; row < board.length; row++) {
             if (board[row][col] == queen) {
@@ -75,7 +70,6 @@ class NQueens {
         }
         return 0;
     }
-
     boolean isSafe(int row, int col){
         for (int i = 0; i < col; i++) {
             if (board[row][i] == queen) {
